@@ -1,11 +1,15 @@
 package L8_Sep15;
 
+import java.util.ArrayList;
+
 /**
  * @author Garima Chhikara
  * @date Sep 15, 2018
  */
 
 public class RecursinDemo {
+
+	static int global = 0;
 
 	public static void main(String[] args) {
 
@@ -15,10 +19,19 @@ public class RecursinDemo {
 		// printDecIncSkips(9);
 		// System.out.println(fibonacci(10));
 
-		int[] arr = { 10, 20, 300, 40, 50, 300 };
+		int[] arr = { 10, 20, 30, 40, 50, 30 };
 		// displayReverse(arr, 0);
 		System.out.println(max(arr, 0));
 		System.out.println(findStartIndex(arr, 0, 30));
+		System.out.println(findEndIndex(arr, 0, 30));
+		System.out.println(findAllIndexAL(arr, 0, 30));
+
+		// int[] ans = findAllIndex(arr, 0, 30, 0);
+
+		int[] ans = findAllIndexGlobal(arr, 0, 30);
+		for (int val : ans) {
+			System.out.println(val);
+		}
 	}
 
 	public static void printDec(int n) {
@@ -174,9 +187,77 @@ public class RecursinDemo {
 
 	public static int findEndIndex(int[] arr, int vidx, int item) {
 
+		if (vidx == arr.length) {
+			return -1;
+		}
+
+		int recAns = findEndIndex(arr, vidx + 1, item);
+
+		if (arr[vidx] == item && recAns == -1) {
+			return vidx;
+		}
+
+		return recAns;
 	}
 
-	public static int[] findAllIndex(int[] arr, int vidx, int item) {
+	public static ArrayList<Integer> findAllIndexAL(int[] arr, int vidx, int item) {
+
+		if (vidx == arr.length) {
+
+			ArrayList<Integer> bres = new ArrayList<>();
+			return bres;
+		}
+
+		ArrayList<Integer> recAns = findAllIndexAL(arr, vidx + 1, item);
+
+		if (arr[vidx] == item) {
+			recAns.add(0, vidx);
+		}
+
+		return recAns;
+
+	}
+
+	public static int[] findAllIndex(int[] arr, int vidx, int item, int count) {
+
+		if (vidx == arr.length) {
+			int[] br = new int[count];
+			return br;
+		}
+
+		int[] recAns;
+
+		if (arr[vidx] == item) {
+			recAns = findAllIndex(arr, vidx + 1, item, count + 1);
+			recAns[count] = vidx;
+
+		} else {
+			recAns = findAllIndex(arr, vidx + 1, item, count);
+		}
+
+		return recAns;
+
+	}
+
+	public static int[] findAllIndexGlobal(int[] arr, int vidx, int item) {
+
+		if (vidx == arr.length) {
+			int[] br = new int[global];
+			return br;
+		}
+
+		if (arr[vidx] == item) {
+			global++;
+		}
+
+		int[] recAns = findAllIndexGlobal(arr, vidx + 1, item);
+
+		if (arr[vidx] == item) {
+			global--;
+			recAns[global] = vidx;
+		}
+
+		return recAns;
 
 	}
 
