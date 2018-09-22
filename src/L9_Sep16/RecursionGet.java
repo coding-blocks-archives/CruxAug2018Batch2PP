@@ -23,7 +23,15 @@ public class RecursionGet {
 
 		// System.out.println(getSS("abc"));
 		// System.out.println(getKPC("145"));
-		System.out.println(getPermutation("abc"));
+		// System.out.println(getPermutation("abc")
+
+		// System.out.println(getBoardPath(0, 10));
+		// System.out.println(getCoinToss(3));
+		// System.out.println(getMazePathD(0, 0, 2, 2));
+
+		int[][] blocked = { { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 } };
+
+		System.out.println(getMazePathDMM(0, 0, 2, 2).size());
 	}
 
 	public static ArrayList<String> getSS(String str) {
@@ -127,6 +135,151 @@ public class RecursionGet {
 
 		}
 
+		return myRes;
+
+	}
+
+	public static ArrayList<String> getBoardPath(int curr, int end) {
+
+		if (curr == end) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			baseRes.add("\n");
+			return baseRes;
+		}
+
+		if (curr > end) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			return baseRes;
+		}
+
+		ArrayList<String> myRes = new ArrayList<>();
+
+		for (int dice = 1; dice <= 6; dice++) {
+			ArrayList<String> recRes = getBoardPath(curr + dice, end);
+			for (String val : recRes) {
+				myRes.add(dice + val);
+			}
+		}
+
+		return myRes;
+	}
+
+	public static ArrayList<String> getCoinToss(int n) {
+
+		if (n == 0) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			baseRes.add("");
+			return baseRes;
+		}
+
+		ArrayList<String> recRes = getCoinToss(n - 1);
+
+		ArrayList<String> myRes = new ArrayList<>();
+
+		for (String val : recRes) {
+			myRes.add("H" + val);
+			myRes.add("T" + val);
+		}
+
+		return myRes;
+
+	}
+
+	public static ArrayList<String> getMazePath(int cr, int cc, int er, int ec) {
+
+		if (cr == er && cc == ec) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			baseRes.add("");
+			return baseRes;
+		}
+
+		if (cr > er || cc > ec) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			return baseRes;
+		}
+
+		ArrayList<String> myRes = new ArrayList<>();
+
+		// if (cc < ec) {
+		ArrayList<String> recResH = getMazePath(cr, cc + 1, er, ec);
+		for (String val : recResH) {
+			myRes.add("H" + val);
+		}
+		// }
+
+		// if (cr < er) {
+		ArrayList<String> recResV = getMazePath(cr + 1, cc, er, ec);
+		for (String val : recResV) {
+			myRes.add("V" + val);
+		}
+		// }
+
+		return myRes;
+	}
+
+	public static ArrayList<String> getMazePathD(int cr, int cc, int er, int ec) {
+		if (cr == er && cc == ec) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			baseRes.add("");
+			return baseRes;
+		}
+
+		if (cr > er || cc > ec) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			return baseRes;
+		}
+
+		ArrayList<String> myRes = new ArrayList<>();
+
+		ArrayList<String> recResH = getMazePathD(cr, cc + 1, er, ec);
+		for (String val : recResH) {
+			myRes.add("H" + val);
+		}
+
+		ArrayList<String> recResV = getMazePathD(cr + 1, cc, er, ec);
+		for (String val : recResV) {
+			myRes.add("V" + val);
+		}
+
+		ArrayList<String> recResD = getMazePathD(cr + 1, cc + 1, er, ec);
+		for (String val : recResD) {
+			myRes.add("D" + val);
+		}
+
+		return myRes;
+	}
+
+	public static ArrayList<String> getMazePathDMM(int cr, int cc, int er, int ec) {
+
+		if (cr == er && cc == ec) {
+			ArrayList<String> baseRes = new ArrayList<>();
+			baseRes.add("");
+			return baseRes;
+		}
+
+		ArrayList<String> myRes = new ArrayList<>();
+
+		for (int move = 1; move <= ec - cc; move++) {
+			ArrayList<String> recResH = getMazePathDMM(cr, cc + move, er, ec);
+			for (String val : recResH) {
+				myRes.add("H" + move + val);
+			}
+		}
+
+		for (int move = 1; move <= er - cr; move++) {
+			ArrayList<String> recResV = getMazePathDMM(cr + move, cc, er, ec);
+			for (String val : recResV) {
+				myRes.add("V" + move + val);
+			}
+		}
+
+		for (int move = 1; move <= ec - cc && move <= er - cr; move++) {
+			ArrayList<String> recResD = getMazePathDMM(cr + move, cc + move, er, ec);
+			for (String val : recResD) {
+				myRes.add("D" + move + val);
+			}
+
+		}
 		return myRes;
 
 	}
