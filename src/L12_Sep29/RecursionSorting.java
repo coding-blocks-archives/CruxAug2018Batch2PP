@@ -1,4 +1,4 @@
-package L12_Sep29.RecursionSorting;
+package L12_Sep29;
 
 /**
  * @author Garima Chhikara
@@ -7,7 +7,7 @@ package L12_Sep29.RecursionSorting;
  *
  */
 
-public class Sorting {
+public class RecursionSorting {
 
 	public static void main(String[] args) {
 
