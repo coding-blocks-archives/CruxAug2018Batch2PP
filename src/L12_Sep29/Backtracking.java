@@ -11,10 +11,11 @@ public class Backtracking {
 
 	public static void main(String[] args) {
 
-//		int[][] maze = { { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 } };
-//
-//		boolean[][] visited = new boolean[maze.length][maze[0].length];
-//		blockedMaze(maze, 0, 0, "", visited);
+		// int[][] maze = { { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0
+		// } };
+		//
+		// boolean[][] visited = new boolean[maze.length][maze[0].length];
+		// blockedMaze(maze, 0, 0, "", visited);
 
 		NQueens(new boolean[4][4], 0, "");
 	}

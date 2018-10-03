@@ -11,17 +11,17 @@ public class RecursionSorting {
 
 	public static void main(String[] args) {
 
-//		int[] one = { 10, 20, 30, 40, 50 };
-//		int[] two = { 5, 12, 17, 20, 25, 60, 70, 80 };
-//
-//		int[] ans = mergeTwoSortedArrays(one, two);
-//
-//		for (int val : ans) {
-//			System.out.println(val);
-//		}
+		// int[] one = { 10, 20, 30, 40, 50 };
+		// int[] two = { 5, 12, 17, 20, 25, 60, 70, 80 };
+		//
+		// int[] ans = mergeTwoSortedArrays(one, two);
+		//
+		// for (int val : ans) {
+		// System.out.println(val);
+		// }
 
 		int[] arr = { 50, 20, 1, 3, 7, 8, 122, 98 };
-//		int[] ans = mergeSort(arr, 0, arr.length - 1);
+		// int[] ans = mergeSort(arr, 0, arr.length - 1);
 
 		quickSort(arr, 0, arr.length - 1);
 		for (int val : arr) {

@@ -1,5 +1,7 @@
 package L13_Sep30;
 
+import java.util.Arrays;
+
 /**
  * @author Garima Chhikara
  * @email garima.chhikara@codingblocks.com
@@ -19,13 +21,15 @@ public class TimeSpace {
 		long start = System.currentTimeMillis();
 		// bubblesort(arr);
 		// L12_Sep29.RecursionSorting.mergeSort(arr, 0, arr.length - 1) ;
-		System.out.println(power(2, 1000000000));
+		// System.out.println(power(2, 1000000000));
 
-		long end = System.currentTimeMillis();
-		System.out.println(end - start);
+		// long end = System.currentTimeMillis();
+		// System.out.println(end - start);
 
 		// System.out.println(polynomial(3, 5));
 		// System.out.println(palindromicSS("aabaa"));
+
+		SOE(25);
 
 	}
 
@@ -119,6 +123,35 @@ public class TimeSpace {
 		}
 
 		return ans;
+
+	}
+
+	// Complexity : nloglogn
+	public static void SOE(int n) {
+
+		boolean[] primes = new boolean[n + 1];
+		Arrays.fill(primes, true);
+
+		primes[0] = false;
+		primes[1] = false;
+
+		for (int table = 2; table * table <= n; table++) {
+
+			if (primes[table] == false) {
+				continue;
+			}
+
+			for (int multiplier = 2; multiplier * table <= n; multiplier++) {
+				primes[multiplier * table] = false;
+			}
+
+		}
+
+		for (int i = 0; i < primes.length; i++) {
+			if (primes[i]) {
+				System.out.println(i);
+			}
+		}
 
 	}
 
