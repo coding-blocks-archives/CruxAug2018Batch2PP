@@ -7,11 +7,11 @@ package L14_Oct2;
  *
  */
 
-public class StackClient {
+public class DSClient {
 
 	public static void main(String[] args) throws Exception {
 
-		Stack s = new Stack();
+		Stack s = new DynamicStack();
 		s.push(10);
 		s.push(20);
 		s.push(30);
