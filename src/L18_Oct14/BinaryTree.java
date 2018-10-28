@@ -1,6 +1,5 @@
 package L18_Oct14;
 
-import java.awt.HeadlessException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -70,8 +69,28 @@ public class BinaryTree {
 
 	private Node construct(int[] pre, int plo, int phi, int[] in, int ilo, int ihi) {
 
-		
-		
+		if (plo > phi || ilo > ihi) {
+			return null;
+		}
+
+		Node nn = new Node();
+		nn.data = pre[plo];
+
+		int si = -1;
+
+		for (int i = ilo; i <= ihi; i++) {
+			if (in[i] == pre[plo]) {
+				si = i;
+				break;
+			}
+		}
+
+		int nel = si - ilo;
+
+		nn.left = construct(pre, plo + 1, plo + nel, in, ilo, si - 1); // left
+		nn.right = construct(pre, plo + nel + 1, phi, in, si + 1, ihi); // right
+
+		return nn;
 	}
 
 	public void display() {
@@ -375,6 +394,59 @@ public class BinaryTree {
 		}
 
 		System.out.println();
+
+	}
+
+	private class BSTPair {
+
+		Node largestBSTNode; // largest BST Node
+		int max = Integer.MIN_VALUE;
+		int min = Integer.MAX_VALUE;
+		boolean isBST = true;
+		int size = 0;
+	}
+
+	public void largestBST() {
+		BSTPair pair = largestBST(this.root);
+
+		System.out.println("Data :" + pair.largestBSTNode.data);
+		System.out.println("Size :" + pair.size);
+	}
+
+	private BSTPair largestBST(Node node) {
+
+		if (node == null) {
+
+			BSTPair bp = new BSTPair();
+			return bp;
+		}
+		BSTPair lbstpair = largestBST(node.left);
+		BSTPair rbstpair = largestBST(node.right);
+
+		BSTPair sbstpair = new BSTPair();
+
+		sbstpair.max = Math.max(node.data, Math.max(lbstpair.max, rbstpair.max));
+		sbstpair.min = Math.min(node.data, Math.min(lbstpair.min, rbstpair.min));
+
+		if (lbstpair.isBST && rbstpair.isBST && node.data > lbstpair.max && node.data < rbstpair.min) {
+
+			sbstpair.isBST = true;
+			sbstpair.largestBSTNode = node;
+			sbstpair.size = lbstpair.size + rbstpair.size + 1;
+		} else {
+			sbstpair.isBST = false;
+
+			if (lbstpair.size > rbstpair.size) {
+				sbstpair.largestBSTNode = lbstpair.largestBSTNode;
+				sbstpair.size = lbstpair.size;
+
+			} else {
+				sbstpair.largestBSTNode = rbstpair.largestBSTNode;
+				sbstpair.size = rbstpair.size;
+			}
+		}
+
+		return sbstpair;
 
 	}
 
