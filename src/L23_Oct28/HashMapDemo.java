@@ -47,12 +47,15 @@ public class HashMapDemo {
 		for (String key : set) {
 			System.out.println(key + "->" + map.get(key));
 		}
-		
-		
-		int[] one = {10,10,20,20,20} ;
-		int[] two = {10,10,10, 20,20} ;
-		
+
+		int[] one = { 10, 10, 20, 20, 20 };
+		int[] two = { 10, 10, 10, 20, 20 };
+
 		System.out.println(intersection(one, two));
+		
+		int[] arr = {2, 12, 9, 16, 10, 5, 3, 20, 25, 11, 1, 8, 6, 13} ;
+		
+		System.out.println(longestConsecutiveSeq(arr));
 
 	}
 
@@ -126,9 +129,52 @@ public class HashMapDemo {
 		return ans;
 	}
 
-	public ArrayList<Integer> longestConsecutiveSeq(int[] arr) {
+	public static ArrayList<Integer> longestConsecutiveSeq(int[] arr) {
 
 		ArrayList<Integer> ans = new ArrayList<>();
+
+		HashMap<Integer, Boolean> map = new HashMap<>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			int element = arr[i];
+
+			if (map.containsKey(element - 1)) {
+				map.put(element, false);
+			} else {
+				map.put(element, true);
+			}
+
+			if (map.containsKey(element + 1)) {
+				map.put(element + 1, false);
+			}
+
+		}
+
+		int maxCount = 0;
+		int starting = 0;
+
+		for (Integer key : map.keySet()) {
+
+			if (map.get(key)) {
+
+				int c = 0;
+
+				while (map.containsKey(key + c)) {
+					c++;
+				}
+
+				if (c > maxCount) {
+					maxCount = c;
+					starting = key;
+				}
+			}
+
+		}
+
+		for (int i = 0; i < maxCount; i++) {
+			ans.add(starting + i);
+		}
 
 		return ans;
 
